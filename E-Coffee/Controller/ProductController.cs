@@ -17,25 +17,41 @@ namespace E_Coffee.Controllers
         {
             repository = repo;
         }
+
         public ViewResult Index(string category, int page = 1)
-               => View(new ProductsListViewModel {
-                   Products = repository.Products
-                    .Where(p => category == null || p.Category == category)
-                    .OrderBy(p => p.ProductID)
-                    .Skip((page - 1) * PageSize)
-                    .Take(PageSize),
-                   PagingInfo = new PagingInfo
-                   {
-                       CurrentPage = page,
-                       ItemsPerPage = PageSize,
-                       TotalItems = category == null ?
-                        repository.Products.Count() :
-                        repository.Products.Where(e =>
-                        e.Category == category).Count()
-                   },
-                   CurrentCategory = category
-               });
+        {
+            //Fetches the Data from the database query
+            var products = repository.Products
+                                     .Where(p => category == null || p.Category == category)
+                                     .OrderBy(p => p.ProductID)
+                                     .Skip((page - 1) * PageSize)
+                                     .Take(PageSize);
+            
+            //Count the total number of products in the Db
+            var total = 0;
+            if(category == null)
+            {
+                total = repository.Products.Count();
+            }
+            else
+            {
+                total = repository.Products.Where(e => e.Category == category).Count();
+            }
 
+            //Construct a ViewModel and return it
+            var model = new ProductsListViewModel
+            {
+                Products = products,
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = total
+                },
+                CurrentCategory = category
+            };
 
+            return View(model);
+        }
     }
 }

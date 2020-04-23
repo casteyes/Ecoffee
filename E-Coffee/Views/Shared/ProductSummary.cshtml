@@ -5,6 +5,12 @@
             <h3 class="card-title">
                 <strong>@Model.Name</strong>
             </h3>
+            @if (!string.IsNullOrEmpty(Model.Image))
+            {
+                <p>
+                    <img src="@Model.Image" width="200" />
+                </p>
+            }
             <p class="card-text lead">
                 @Model.Description
             </p>

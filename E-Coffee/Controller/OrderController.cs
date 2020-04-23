@@ -15,14 +15,19 @@ namespace E_Coffee.Controllers
             repository = repoService;
             cart = cartService;
         }
+
         [Authorize]
-        public ViewResult List() => View(repository.Orders.Where(o => !o.Shipped));
+        public ViewResult List()
+        {
+            var orders = repository.Orders.Where(o => !o.Shipped);
+            return View(orders);
+        }
+
         [HttpPost]
         [Authorize]
         public IActionResult MarkShipped(int orderID)
         {
-            Order order = repository.Orders
-            .FirstOrDefault(o => o.OrderID == orderID);
+            var order = repository.Orders.FirstOrDefault(o => o.OrderID == orderID);
             if (order != null)
             {
                 order.Shipped = true;
@@ -31,7 +36,11 @@ namespace E_Coffee.Controllers
             return RedirectToAction(nameof(List));
         }
 
-        public ViewResult Checkout() => View(new Order());
+        public ViewResult Checkout()
+        {
+            return View(new Order());
+        }
+
         [HttpPost]
         public IActionResult Checkout(Order order)
         {
