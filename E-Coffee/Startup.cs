@@ -18,7 +18,7 @@ namespace E_Coffee
 {
     public class Startup
     {
-        IConfigurationRoot Configuration;
+        readonly IConfigurationRoot Configuration;
         public Startup(IWebHostEnvironment env)
         {
             Configuration = new ConfigurationBuilder()
@@ -30,8 +30,7 @@ namespace E_Coffee
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-           options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -50,40 +49,17 @@ namespace E_Coffee
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory
-      loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseSession();
-            app.UseMvc(routes => {
-
-               // routes.MapRoute(
-               // name: null,
-               //template: "{category}/Page{page:int}",
-               //defaults: new { controller = "Product", action = "List" }
-               // );
-               // routes.MapRoute(
-               // name: null,
-               //template: "Page{page:int}",
-               //defaults: new { controller = "Product", action = "List", page = 1 }
-               // );
-               // routes.MapRoute(
-               // name: null,
-               //template: "{category}",
-               //defaults: new { controller = "Product", action = "List", page = 1 }
-               // );
-               // routes.MapRoute(
-               // name: null,
-               //template: "",
-               //defaults: new { controller = "Product", action = "List", page = 1 });
-
-               routes.MapRoute(name: "defaultMvc", template: "{controller=product}/{action=index}/{id?}");
-
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(name: "defaultMvc", template: "{controller=product}/{action=index}/{id?}");
             });
-
         }
     }
 }
