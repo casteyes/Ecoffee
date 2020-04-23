@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace E_Coffee.Models
+namespace E_Coffee.Models.ViewModels
 {
-    public class Product
+    public class ProductModel
     {
         public int ProductID { get; set; }
         [Required(ErrorMessage = "Please enter a product name")]
@@ -18,9 +18,8 @@ namespace E_Coffee.Models
         [Range(0.01, double.MaxValue, ErrorMessage = "Please enter a positive price")]
         public decimal Price { get; set; }
         [Required(ErrorMessage = "Please specify a category")]
-
         public string Category { get; set; }
         public string Image { get; set; }
-
+        public IFormFile ImageFile { get; set; }
     }
 }
