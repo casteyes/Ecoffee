@@ -15,9 +15,12 @@ namespace E_Coffee.Controllers
         }
         public ViewResult Index() => View(repository.Products);
 
-        public ViewResult Edit(int productId) =>
-            View(repository.Products
-            .FirstOrDefault(p => p.ProductID == productId));
+        public ViewResult Edit(int productId)
+        {
+            var product = repository.Products.FirstOrDefault(p => p.ProductID == productId);
+            return View(product);
+        }
+            
         [HttpPost]
         public IActionResult Edit(Product product)
         {
