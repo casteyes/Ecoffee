@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css" />
+    <link rel="stylesheet" asp-href-include="lib/font-awesome/css/*.css" />
+
+    <title>E-Coffee</title>
+</head>
+<body>
+    <nav class="navbar navbar-inverse bg-info justify-content-between">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand text-white" href="#">E-COFFEE</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a class="nav-link" href="Login.cshtml">Link 1</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="#">Link 2</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="#">Link 3</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="#">Link 4</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="float-right">
+                @await Component.InvokeAsync("CartSummary")
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col col-md-3">
+                @await Component.InvokeAsync("NavigationMenu")
+            </div>
+            <div class="col col-md-9">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+</body>
+</html>
