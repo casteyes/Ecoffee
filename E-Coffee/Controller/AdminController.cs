@@ -42,7 +42,12 @@ namespace E_Coffee.Controllers
                 {
                     //Create Product Entity
                     var product = Mapper.Map(model);
-                    product.Image = SaveImage(model.ImageFile);
+
+                    if(model.ImageFile != null)
+                    {
+                        product.Image = SaveImage(model.ImageFile);
+                    }
+
                     repository.SaveProduct(product);
 
                     //Update ProductID in the ViewModel
@@ -88,6 +93,8 @@ namespace E_Coffee.Controllers
 
             //Generate a Unique Filename
             var guid = Guid.NewGuid().ToString();
+
+            // C:\App\wwwroot\images\products\1239192312931.jpg
             var filePath = $"{environment.WebRootPath}/images/products/{guid}{extension}";
 
             //Copy the contents of the upload to the image file
