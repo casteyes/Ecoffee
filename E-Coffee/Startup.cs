@@ -22,8 +22,10 @@ namespace E_Coffee
         public Startup(IWebHostEnvironment env)
         {
             Configuration = new ConfigurationBuilder()
-            .SetBasePath(env.ContentRootPath)
-            .AddJsonFile("appsettings.json").Build();
+                                .SetBasePath(env.ContentRootPath)
+                                .AddJsonFile("appsettings.json")
+                                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                                .Build();
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.

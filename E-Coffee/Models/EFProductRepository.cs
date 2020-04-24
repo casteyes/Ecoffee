@@ -29,6 +29,9 @@ namespace E_Coffee.Models
                     dbEntry.Description = product.Description;
                     dbEntry.Price = product.Price;
                     dbEntry.Category = product.Category;
+                }
+                if(product.Image != null)
+                {
                     dbEntry.Image = product.Image;
                 }
             }

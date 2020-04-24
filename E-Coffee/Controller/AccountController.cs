@@ -104,6 +104,7 @@ namespace E_Coffee.Controllers
                 ModelState.TryAddModelError("", error.Description);
             }
         }
+
         public async Task<IActionResult> Delete(string id)
         {
             AppUser user = await userManager.FindByIdAsync(id);

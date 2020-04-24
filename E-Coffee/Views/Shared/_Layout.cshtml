@@ -17,16 +17,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="Login.cshtml">Link 1</a>
+                    <a class="nav-link" asp-controller="product" asp-action="index">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link 2</a>
+                    <a class="nav-link" asp-controller="account" asp-action="login">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link 3</a>
+                    <a class="nav-link" asp-controller="order" asp-action="list">Orders</a>
                 </li>
                 <li>
-                    <a class="nav-link" href="#">Link 4</a>
+                    <a class="nav-link" asp-controller="order" asp-action="checkout">Checkout</a>
                 </li>
             </ul>
             <div>
